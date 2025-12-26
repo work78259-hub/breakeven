@@ -17,7 +17,6 @@
       --shadow: 0 1px 2px rgba(0,0,0,.05);
       --focus: #111827;
     }
-
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
@@ -26,33 +25,15 @@
       color:var(--text);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
-
     .wrap{
-      max-width: 760px;
+      max-width: 860px;
       margin: 0 auto;
       padding: 14px;
       padding-bottom: 24px;
     }
-
-    header{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-      margin: 6px 0 12px;
-    }
-
-    h1{
-      font-size: 20px;
-      line-height: 1.2;
-      margin:0;
-      letter-spacing:.2px;
-    }
-    .sub{
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
+    header{ margin: 6px 0 12px; }
+    h1{ font-size: 22px; margin:0; letter-spacing:.2px; }
+    .sub{ font-size: 12px; color: var(--muted); margin-top: 4px; }
 
     .grid{
       display:grid;
@@ -61,7 +42,6 @@
     }
     @media (min-width: 900px){
       .grid{ grid-template-columns: 1fr 1fr; align-items:start; }
-      h1{ font-size: 22px; }
     }
 
     .card{
@@ -71,37 +51,7 @@
       padding: var(--pad);
       box-shadow: var(--shadow);
     }
-
-    .card h2{
-      font-size: 15px;
-      margin: 0 0 10px;
-    }
-
-    .field{
-      margin: 10px 0;
-    }
-
-    .label{
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .input{
-      width: 100%;
-      height: 50px;
-      font-size: 18px;
-      padding: 10px 12px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: #fff;
-      outline: none;
-    }
-
-    .input:focus{
-      border-color: var(--focus);
-      box-shadow: 0 0 0 3px rgba(17,24,39,.08);
-    }
+    .card h2{ font-size: 15px; margin: 0 0 10px; }
 
     .row2{
       display:grid;
@@ -112,13 +62,34 @@
       .row2{ grid-template-columns: 1fr 1fr; }
     }
 
+    .field{ margin: 10px 0; }
+    .label{
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+    .input{
+      width: 100%;
+      height: 50px;
+      font-size: 18px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      outline: none;
+    }
+    .input:focus{
+      border-color: var(--focus);
+      box-shadow: 0 0 0 3px rgba(17,24,39,.08);
+    }
+
     .btnRow{
       display:flex;
       gap:10px;
       flex-wrap: wrap;
       margin-top: 12px;
     }
-
     button{
       height: 46px;
       padding: 0 14px;
@@ -128,9 +99,7 @@
       font-size: 15px;
       cursor: pointer;
     }
-    button.primary{
-      border-color: #111827;
-    }
+    button.primary{ border-color: #111827; }
 
     .note{
       margin-top: 10px;
@@ -139,45 +108,31 @@
       line-height: 1.3;
     }
 
-    .results{
-      display:grid;
-      gap: 10px;
-    }
-
-    .blockTitle{
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
+    .results{ display:grid; gap: 10px; }
+    .blockTitle{ font-size: 13px; color: var(--muted); margin-top: 4px; }
     .resultBox{
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: 12px;
       background: #fbfbfc;
     }
-
     .kv{
       display:flex;
       justify-content:space-between;
       gap: 12px;
-      padding: 6px 0;
+      padding: 10px 0;
       border-bottom: 1px solid #f0f1f3;
       font-variant-numeric: tabular-nums;
     }
     .kv:last-child{ border-bottom:none; }
-    .k{ color: var(--muted); font-size: 13px; }
-    .v{ font-weight: 700; font-size: 14px; }
+    .k{ color: var(--muted); font-size: 13px; line-height:1.25; padding-right: 10px; }
+    .v{ font-weight: 900; font-size: 15px; white-space: nowrap; }
 
-    .status{
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 6px;
-    }
+    .status{ font-size: 12px; color: var(--muted); margin-top: 8px; }
 
     .hidden { display:none !important; }
 
-    /* PIN screen */
+    /* PIN overlay */
     .overlay{
       position: fixed;
       inset: 0;
@@ -196,21 +151,9 @@
       border: 1px solid var(--line);
       box-shadow: 0 10px 40px rgba(0,0,0,.25);
     }
-    .pinTitle{
-      font-size: 18px;
-      margin: 0 0 6px;
-      font-weight: 800;
-    }
-    .pinHelp{
-      margin: 0 0 12px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.3;
-    }
-    .pinRow{
-      display:flex;
-      gap:10px;
-    }
+    .pinTitle{ font-size: 18px; margin: 0 0 6px; font-weight: 900; }
+    .pinHelp{ margin: 0 0 12px; color: var(--muted); font-size: 13px; line-height: 1.3; }
+    .pinRow{ display:flex; gap:10px; }
     .pinRow input{
       flex:1;
       height: 52px;
@@ -247,12 +190,10 @@
     </div>
   </div>
 
-  <div class="wrap" id="app" class="hidden">
+  <div class="wrap hidden" id="app">
     <header>
-      <div>
-        <h1>Break Even Calculator</h1>
-        <div class="sub">Offline-capable once loaded. Works on iPhone, Android, and PC.</div>
-      </div>
+      <h1>Break Even Calculator</h1>
+      <div class="sub">Last inputs are saved automatically. Works on iPhone, Android, and PC.</div>
     </header>
 
     <div class="grid">
@@ -262,39 +203,39 @@
         <div class="row2">
           <div class="field">
             <div class="label">Domestic buy (¥/kg) — 仕入¥</div>
-            <input class="input" id="domBuyY" type="number" inputmode="decimal" step="0.01" value="70">
+            <input class="input" id="domBuyY" type="number" inputmode="decimal" step="0.01">
           </div>
           <div class="field">
             <div class="label">Domestic sell ($/ton) — 売値$</div>
-            <input class="input" id="domSellUsd" type="number" inputmode="decimal" step="0.01" value="800">
+            <input class="input" id="domSellUsd" type="number" inputmode="decimal" step="0.01">
           </div>
         </div>
 
         <div class="row2">
           <div class="field">
             <div class="label">Overseas buy ($/ton) — 仕入$</div>
-            <input class="input" id="osBuyUsd" type="number" inputmode="decimal" step="0.01" value="585">
+            <input class="input" id="osBuyUsd" type="number" inputmode="decimal" step="0.01">
           </div>
           <div class="field">
             <div class="label">Overseas sell ($/ton) — 売値$</div>
-            <input class="input" id="osSellUsd" type="number" inputmode="decimal" step="0.01" value="700">
+            <input class="input" id="osSellUsd" type="number" inputmode="decimal" step="0.01">
           </div>
         </div>
 
         <div class="row2">
           <div class="field">
             <div class="label">Exchange rate (¥ per $) — 為替$</div>
-            <input class="input" id="fx" type="number" inputmode="decimal" step="0.0001" value="155">
+            <input class="input" id="fx" type="number" inputmode="decimal" step="0.0001">
           </div>
           <div class="field">
             <div class="label">Ocean freight ($ per shipment) — 海上運賃</div>
-            <input class="input" id="freight" type="number" inputmode="decimal" step="0.01" value="700">
+            <input class="input" id="freight" type="number" inputmode="decimal" step="0.01">
           </div>
         </div>
 
         <div class="field">
           <div class="label">Load weight (kg) — 積載重量</div>
-          <input class="input" id="weight" type="number" inputmode="numeric" step="1" value="25000">
+          <input class="input" id="weight" type="number" inputmode="numeric" step="1">
         </div>
 
         <div class="btnRow">
@@ -319,27 +260,37 @@
 
           <div class="resultBox">
             <div class="blockTitle">Domestic (内外)</div>
-            <div class="kv"><div class="k">Sell ¥/kg (from buy)</div><div class="v" id="domSellYFromBuy">—</div></div>
-            <div class="kv"><div class="k">Sell $/ton (from buy)</div><div class="v" id="domSellUsdTonFromBuy">—</div></div>
-            <div class="kv"><div class="k">Sell ¥/kg (from sell)</div><div class="v" id="domSellYFromSell">—</div></div>
-            <div class="kv"><div class="k">Buy ¥/kg (from sell)</div><div class="v" id="domBuyYFromSell">—</div></div>
+            <div class="kv">
+              <div class="k">Selling Price $ (仕入損益分岐　売値＄)</div>
+              <div class="v" id="domSellUsdTonFromBuy">—</div>
+            </div>
+            <div class="kv">
+              <div class="k">Buying B/E (損益分岐　仕入)</div>
+              <div class="v" id="domBuyYFromSell">—</div>
+            </div>
           </div>
 
           <div class="resultBox">
             <div class="blockTitle">Overseas (外外)</div>
-            <div class="kv"><div class="k">Sell $/ton (from buy)</div><div class="v" id="osSellUsdTonFromBuy">—</div></div>
-            <div class="kv"><div class="k">Buy $/ton (from sell)</div><div class="v" id="osBuyUsdTonFromSell">—</div></div>
+            <div class="kv">
+              <div class="k">B/E Selling Price （損益分岐販売価格）</div>
+              <div class="v" id="osSellUsdTonFromBuy">—</div>
+            </div>
+            <div class="kv">
+              <div class="k">B/E Buying Price (損益分岐仕入価格)</div>
+              <div class="v" id="osBuyUsdTonFromSell">—</div>
+            </div>
           </div>
         </div>
 
-        <div class="status" id="statusText">Enter values to see results.</div>
+        <div class="status" id="statusText">OK.</div>
       </section>
     </div>
   </div>
 
 <script>
   // =========================
-  // Simple PIN gate (PIN=1234)
+  // PIN gate (PIN=1234)
   // =========================
   const PIN = "1234";
   const pinOverlay = document.getElementById("pinOverlay");
@@ -360,11 +311,8 @@
       pinInput.focus();
     }
   }
-
   pinBtn.addEventListener("click", unlock);
-  pinInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") unlock();
-  });
+  pinInput.addEventListener("keydown", (e) => { if (e.key === "Enter") unlock(); });
 
   // remember unlock for this tab
   try {
@@ -375,20 +323,52 @@
   } catch {}
 
   // =========================
-  // Calculator logic (matches your Excel)
+  // Save inputs (last entered)
   // =========================
+  const STORE_KEY = "be_inputs_v2";
+  const DEFAULTS = {
+    domBuyY: 70,
+    domSellUsd: 800,
+    osBuyUsd: 585,
+    osSellUsd: 700,
+    fx: 155,
+    freight: 700,
+    weight: 25000
+  };
+
   const el = (id) => document.getElementById(id);
-  const inputs = ["domBuyY","domSellUsd","osBuyUsd","osSellUsd","fx","freight","weight"].map(el);
+  const inputs = Object.keys(DEFAULTS);
 
-  function num(v) {
-    const n = Number(v);
-    return Number.isFinite(n) ? n : NaN;
+  function loadInputs() {
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); } catch {}
+    const data = (saved && typeof saved === "object") ? saved : DEFAULTS;
+
+    inputs.forEach(id => {
+      const v = (data[id] ?? DEFAULTS[id]);
+      el(id).value = v;
+    });
   }
 
-  function fmt(n, d=2) {
-    return Number.isFinite(n) ? n.toFixed(d) : "—";
+  function saveInputs() {
+    const data = {};
+    inputs.forEach(id => data[id] = el(id).value);
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(data)); } catch {}
   }
 
+  // =========================
+  // Rounding helpers
+  // =========================
+  function num(v){ const n = Number(v); return Number.isFinite(n) ? n : NaN; }
+
+  // round everything to 2 decimals (requested)
+  function fmt2(n){
+    return Number.isFinite(n) ? (Math.round(n * 100) / 100).toFixed(2) : "—";
+  }
+
+  // =========================
+  // Calculator logic
+  // =========================
   function calcAndRender() {
     const domBuyY = num(el("domBuyY").value);
     const domSellUsd = num(el("domSellUsd").value);
@@ -408,54 +388,54 @@
     const ofUsdTon = ofUsdKg * 1000;
     const ofYKg = ofUsdKg * fx;
 
-    // Domestic forward: Sell ¥/kg = (Buy ¥/kg × 1.1) + 10 + OF¥/kg
-    const domSellYFromBuy = (domBuyY * 1.1) + 10 + ofYKg;
-    const domSellUsdTonFromBuy = (domSellYFromBuy / fx) * 1000;
+    // Domestic:
+    // Sell ¥/kg = (Buy ¥/kg × 1.1) + 10 + OF ¥/kg
+    const domSellYkgFromBuy = (domBuyY * 1.1) + 10 + ofYKg;
+    const domSellUsdTonFromBuy = (domSellYkgFromBuy * 1000) / fx;
 
-    // Domestic reverse (given sell $/ton -> buy ¥/kg)
-    const domSellYFromSell = (domSellUsd * fx) / 1000;
-    const domBuyYFromSell = ((domSellYFromSell - ofYKg) - 10) / 1.1;
+    // From domestic sell $/ton => BE buy ¥/kg
+    const domSellYkgFromSell = (domSellUsd * fx) / 1000;
+    const domBuyYFromSell = ((domSellYkgFromSell - ofYKg) - 10) / 1.1;
 
-    // Overseas
+    // Overseas:
+    // From buy => BE selling price
     const osSellUsdTonFromBuy = osBuyUsd + ofUsdTon;
+
+    // From sell => BE buying price
     const osBuyUsdTonFromSell = osSellUsd - ofUsdTon;
 
-    // Render
-    el("ofUsdTon").textContent = fmt(ofUsdTon, 2);
-    el("ofUsdKg").textContent = fmt(ofUsdKg, 4);
-    el("ofYKg").textContent = fmt(ofYKg, 2);
+    // Render (rounded)
+    el("ofUsdTon").textContent = fmt2(ofUsdTon);
+    el("ofUsdKg").textContent = fmt2(ofUsdKg);
+    el("ofYKg").textContent = fmt2(ofYKg);
 
-    el("domSellYFromBuy").textContent = fmt(domSellYFromBuy, 2);
-    el("domSellUsdTonFromBuy").textContent = Number.isFinite(domSellUsdTonFromBuy) ? domSellUsdTonFromBuy.toFixed(0) : "—";
-    el("domSellYFromSell").textContent = fmt(domSellYFromSell, 2);
-    el("domBuyYFromSell").textContent = fmt(domBuyYFromSell, 2);
+    el("domSellUsdTonFromBuy").textContent = fmt2(domSellUsdTonFromBuy);
+    el("domBuyYFromSell").textContent = fmt2(domBuyYFromSell);
 
-    el("osSellUsdTonFromBuy").textContent = fmt(osSellUsdTonFromBuy, 2);
-    el("osBuyUsdTonFromSell").textContent = fmt(osBuyUsdTonFromSell, 2);
+    el("osSellUsdTonFromBuy").textContent = fmt2(osSellUsdTonFromBuy);
+    el("osBuyUsdTonFromSell").textContent = fmt2(osBuyUsdTonFromSell);
 
     el("statusText").textContent = "OK.";
   }
 
-  // Auto-calc on input
-  inputs.forEach(i => i.addEventListener("input", () => {
-    // only calculate if unlocked
-    if (app.classList.contains("hidden")) return;
-    calcAndRender();
-  }));
+  // Wire inputs: save + calc on change
+  inputs.forEach(id => {
+    el(id).addEventListener("input", () => {
+      saveInputs();
+      if (app.classList.contains("hidden")) return;
+      calcAndRender();
+    });
+  });
 
-  // Reset defaults
+  // Reset defaults (and clear saved)
   el("resetBtn").addEventListener("click", () => {
-    el("domBuyY").value = 70;
-    el("domSellUsd").value = 800;
-    el("osBuyUsd").value = 585;
-    el("osSellUsd").value = 700;
-    el("fx").value = 155;
-    el("freight").value = 700;
-    el("weight").value = 25000;
+    inputs.forEach(id => el(id).value = DEFAULTS[id]);
+    try { localStorage.removeItem(STORE_KEY); } catch {}
     calcAndRender();
   });
 
-  // If already unlocked (sessionStorage), calculate now
+  // Initial load
+  loadInputs();
   if (!app.classList.contains("hidden")) {
     calcAndRender();
   } else {

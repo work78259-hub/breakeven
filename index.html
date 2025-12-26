@@ -1,136 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Break Even Calculator</title>
+  <title>BREAK EVEN ANALYSIS</title>
 
   <style>
     :root{
-      --bg:#f6f7f9;
-      --card:#ffffff;
-      --text:#0f172a;
-      --muted:#64748b;
-      --line:#e5e7eb;
-      --radius:16px;
-      --pad:14px;
-      --shadow: 0 1px 2px rgba(0,0,0,.05);
-      --focus: #111827;
+      --bg:#f3f4f6;
+      --grid:#111;
+      --yellow:#fff36a;
+      --cream:#fff7df;
+      --blue:#cfe6f6;
+      --green:#d9ead3;
+      --peach:#f3d6d6;
+      --section:#f7d37a;
+      --white:#fff;
+      --muted:#6b7280;
     }
+
     *{ box-sizing:border-box; }
-    html,body{ height:100%; }
     body{
       margin:0;
       background:var(--bg);
-      color:var(--text);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:#111;
     }
+
     .wrap{
-      max-width: 860px;
+      max-width: 760px;
       margin: 0 auto;
       padding: 14px;
-      padding-bottom: 24px;
-    }
-    header{ margin: 6px 0 12px; }
-    h1{ font-size: 22px; margin:0; letter-spacing:.2px; }
-    .sub{ font-size: 12px; color: var(--muted); margin-top: 4px; }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    @media (min-width: 900px){
-      .grid{ grid-template-columns: 1fr 1fr; align-items:start; }
+      padding-bottom: 28px;
     }
 
-    .card{
-      background:var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: var(--pad);
-      box-shadow: var(--shadow);
-    }
-    .card h2{ font-size: 15px; margin: 0 0 10px; }
-
-    .row2{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-    @media (min-width: 520px){
-      .row2{ grid-template-columns: 1fr 1fr; }
-    }
-
-    .field{ margin: 10px 0; }
-    .label{
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 6px;
-      line-height: 1.25;
-    }
-    .input{
+    .sheet{
       width: 100%;
-      height: 50px;
-      font-size: 18px;
-      padding: 10px 12px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
+      border: 2px solid var(--grid);
+      background: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    }
+
+    .title{
+      text-align:center;
+      font-weight: 800;
+      padding: 10px 8px;
+      border-bottom: 2px solid var(--grid);
       background: #fff;
+      letter-spacing: .3px;
+    }
+
+    table{
+      width:100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    td{
+      border: 2px solid var(--grid);
+      padding: 8px 8px;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 700;
+    }
+
+    .leftTag{
+      width: 74px;
+      font-weight: 900;
+    }
+
+    .peach{ background: var(--peach); }
+    .sectionYellow{ background: var(--section); }
+    .cream{ background: var(--cream); }
+    .blue{ background: var(--blue); }
+    .green{ background: var(--green); }
+    .yellow{ background: var(--yellow); }
+
+    .cellInput{
+      width: 100%;
+      border: none;
       outline: none;
-    }
-    .input:focus{
-      border-color: var(--focus);
-      box-shadow: 0 0 0 3px rgba(17,24,39,.08);
+      background: transparent;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 900;
+      padding: 2px 0;
     }
 
-    .btnRow{
-      display:flex;
-      gap:10px;
-      flex-wrap: wrap;
-      margin-top: 12px;
+    .cellOut{
+      font-size: 18px;
+      font-weight: 900;
     }
-    button{
-      height: 46px;
-      padding: 0 14px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: #fff;
-      font-size: 15px;
-      cursor: pointer;
-    }
-    button.primary{ border-color: #111827; }
 
-    .note{
-      margin-top: 10px;
+    .small{
       font-size: 12px;
+      font-weight: 700;
       color: var(--muted);
-      line-height: 1.3;
+      margin-top: 10px;
+      line-height: 1.35;
     }
 
-    .results{ display:grid; gap: 10px; }
-    .blockTitle{ font-size: 13px; color: var(--muted); margin-top: 4px; }
-    .resultBox{
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 12px;
-      background: #fbfbfc;
+    /* Mobile friendliness */
+    @media (max-width: 420px){
+      td{ padding: 7px 6px; }
+      .leftTag{ width: 64px; }
+      .cellInput, .cellOut{ font-size: 16px; }
     }
-    .kv{
-      display:flex;
-      justify-content:space-between;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid #f0f1f3;
-      font-variant-numeric: tabular-nums;
-    }
-    .kv:last-child{ border-bottom:none; }
-    .k{ color: var(--muted); font-size: 13px; line-height:1.25; padding-right: 10px; }
-    .v{ font-weight: 900; font-size: 15px; white-space: nowrap; }
-
-    .status{ font-size: 12px; color: var(--muted); margin-top: 8px; }
-
-    .hidden { display:none !important; }
 
     /* PIN overlay */
     .overlay{
@@ -148,24 +125,30 @@
       background: #fff;
       border-radius: 18px;
       padding: 16px;
-      border: 1px solid var(--line);
+      border: 1px solid #e5e7eb;
       box-shadow: 0 10px 40px rgba(0,0,0,.25);
     }
     .pinTitle{ font-size: 18px; margin: 0 0 6px; font-weight: 900; }
-    .pinHelp{ margin: 0 0 12px; color: var(--muted); font-size: 13px; line-height: 1.3; }
+    .pinHelp{ margin: 0 0 12px; color: #6b7280; font-size: 13px; line-height: 1.3; }
     .pinRow{ display:flex; gap:10px; }
     .pinRow input{
       flex:1;
       height: 52px;
       font-size: 18px;
       padding: 10px 12px;
-      border: 1px solid var(--line);
+      border: 1px solid #e5e7eb;
       border-radius: 12px;
       outline:none;
     }
-    .pinRow input:focus{
-      border-color: var(--focus);
-      box-shadow: 0 0 0 3px rgba(17,24,39,.08);
+    .pinRow button{
+      height: 52px;
+      padding: 0 14px;
+      border-radius: 12px;
+      border: 1px solid #111;
+      background: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
     }
     .pinErr{
       margin-top: 10px;
@@ -173,125 +156,126 @@
       color: #b91c1c;
       min-height: 18px;
     }
+    .hidden{ display:none !important; }
   </style>
 </head>
 
 <body>
-  <!-- PIN overlay (simple privacy) -->
+  <!-- PIN -->
   <div class="overlay" id="pinOverlay">
     <div class="pinCard">
       <div class="pinTitle">Enter PIN</div>
-      <p class="pinHelp">This calculator is private. Enter the PIN to continue.</p>
+      <p class="pinHelp">PIN を入力してください</p>
       <div class="pinRow">
-        <input id="pinInput" inputmode="numeric" placeholder="PIN" />
-        <button class="primary" id="pinBtn">Unlock</button>
+        <input id="pinInput" inputmode="numeric" placeholder="1234" />
+        <button id="pinBtn">Unlock</button>
       </div>
       <div class="pinErr" id="pinErr"></div>
     </div>
   </div>
 
   <div class="wrap hidden" id="app">
-    <header>
-      <h1>Break Even Calculator</h1>
-      <div class="sub">Last inputs are saved automatically. Works on iPhone, Android, and PC.</div>
-    </header>
+    <div class="sheet">
+      <div class="title">BREAK EVEN ANALYSIS - 損益分岐分析</div>
 
-    <div class="grid">
-      <section class="card">
-        <h2>Inputs</h2>
+      <table>
+        <!-- 内外 -->
+        <tr>
+          <td class="leftTag peach" rowspan="4">内外</td>
+          <td class="cream">仕入</td>
+          <td class="cream">売値¥</td>
+          <td class="cream">売値$</td>
+        </tr>
+        <tr>
+          <td class="yellow">
+            <input class="cellInput" id="domBuyY" type="number" inputmode="decimal" step="0.01">
+          </td>
+          <td class="cream"><div class="cellOut" id="domSellYkgFromBuy">—</div></td>
+          <td class="cream"><div class="cellOut" id="domSellUsdTonFromBuy">—</div></td>
+        </tr>
+        <tr>
+          <td class="cream">仕入</td>
+          <td class="cream">売値¥</td>
+          <td class="cream">売値$</td>
+        </tr>
+        <tr>
+          <td class="cream"><div class="cellOut" id="domBuyYFromSell">—</div></td>
+          <td class="cream"><div class="cellOut" id="domSellYkgFromSell">—</div></td>
+          <td class="yellow">
+            <input class="cellInput" id="domSellUsd" type="number" inputmode="decimal" step="0.01">
+          </td>
+        </tr>
 
-        <div class="row2">
-          <div class="field">
-            <div class="label">Domestic buy (¥/kg) — 仕入¥</div>
-            <input class="input" id="domBuyY" type="number" inputmode="decimal" step="0.01">
-          </div>
-          <div class="field">
-            <div class="label">Domestic sell ($/ton) — 売値$</div>
-            <input class="input" id="domSellUsd" type="number" inputmode="decimal" step="0.01">
-          </div>
-        </div>
+        <!-- 外外 -->
+        <tr>
+          <td class="leftTag sectionYellow" rowspan="4">外外</td>
+          <td class="blue">仕入$</td>
+          <td class="blue">OF/TON</td>
+          <td class="blue">売値$</td>
+        </tr>
+        <tr>
+          <td class="yellow">
+            <input class="cellInput" id="osBuyUsd" type="number" inputmode="decimal" step="0.01">
+          </td>
+          <td class="blue"><div class="cellOut" id="ofUsdTonA">—</div></td>
+          <td class="blue"><div class="cellOut" id="osSellUsdTonFromBuy">—</div></td>
+        </tr>
+        <tr>
+          <td class="blue">仕入$</td>
+          <td class="blue">OF/TON</td>
+          <td class="blue">売値$</td>
+        </tr>
+        <tr>
+          <td class="blue"><div class="cellOut" id="osBuyUsdTonFromSell">—</div></td>
+          <td class="blue"><div class="cellOut" id="ofUsdTonB">—</div></td>
+          <td class="yellow">
+            <input class="cellInput" id="osSellUsd" type="number" inputmode="decimal" step="0.01">
+          </td>
+        </tr>
 
-        <div class="row2">
-          <div class="field">
-            <div class="label">Overseas buy ($/ton) — 仕入$</div>
-            <input class="input" id="osBuyUsd" type="number" inputmode="decimal" step="0.01">
-          </div>
-          <div class="field">
-            <div class="label">Overseas sell ($/ton) — 売値$</div>
-            <input class="input" id="osSellUsd" type="number" inputmode="decimal" step="0.01">
-          </div>
-        </div>
+        <!-- Bottom inputs -->
+        <tr>
+          <td class="green" colspan="1"></td>
+          <td class="green">為替$</td>
+          <td class="green">海上運賃</td>
+          <td class="green">積載重量</td>
+        </tr>
+        <tr>
+          <td class="green" colspan="1"></td>
+          <td class="yellow">
+            <input class="cellInput" id="fx" type="number" inputmode="decimal" step="0.0001">
+          </td>
+          <td class="yellow">
+            <input class="cellInput" id="freight" type="number" inputmode="decimal" step="0.01">
+          </td>
+          <td class="yellow">
+            <input class="cellInput" id="weight" type="number" inputmode="numeric" step="1">
+          </td>
+        </tr>
 
-        <div class="row2">
-          <div class="field">
-            <div class="label">Exchange rate (¥ per $) — 為替$</div>
-            <input class="input" id="fx" type="number" inputmode="decimal" step="0.0001">
-          </div>
-          <div class="field">
-            <div class="label">Ocean freight ($ per shipment) — 海上運賃</div>
-            <input class="input" id="freight" type="number" inputmode="decimal" step="0.01">
-          </div>
-        </div>
+        <!-- Bottom outputs -->
+        <tr>
+          <td class="green" colspan="1"></td>
+          <td class="green">OF$/T</td>
+          <td class="green">OF$/KG</td>
+          <td class="green">OF¥/KG</td>
+        </tr>
+        <tr>
+          <td class="green" colspan="1"></td>
+          <td class="green"><div class="cellOut" id="ofUsdTonC">—</div></td>
+          <td class="green"><div class="cellOut" id="ofUsdKg">—</div></td>
+          <td class="green"><div class="cellOut" id="ofYKg">—</div></td>
+        </tr>
+      </table>
+    </div>
 
-        <div class="field">
-          <div class="label">Load weight (kg) — 積載重量</div>
-          <input class="input" id="weight" type="number" inputmode="numeric" step="1">
-        </div>
-
-        <div class="btnRow">
-          <button class="primary" id="resetBtn">Reset defaults</button>
-        </div>
-
-        <div class="note">
-          Assumption (same as Excel): Sell ¥/kg = (Buy ¥/kg × 1.1) + 10 + OF ¥/kg
-        </div>
-      </section>
-
-      <section class="card">
-        <h2>Results</h2>
-
-        <div class="results">
-          <div class="resultBox">
-            <div class="blockTitle">Freight conversions</div>
-            <div class="kv"><div class="k">OF $/T</div><div class="v" id="ofUsdTon">—</div></div>
-            <div class="kv"><div class="k">OF $/KG</div><div class="v" id="ofUsdKg">—</div></div>
-            <div class="kv"><div class="k">OF ¥/KG</div><div class="v" id="ofYKg">—</div></div>
-          </div>
-
-          <div class="resultBox">
-            <div class="blockTitle">Domestic (内外)</div>
-            <div class="kv">
-              <div class="k">Selling Price $ (仕入損益分岐　売値＄)</div>
-              <div class="v" id="domSellUsdTonFromBuy">—</div>
-            </div>
-            <div class="kv">
-              <div class="k">Buying B/E (損益分岐　仕入)</div>
-              <div class="v" id="domBuyYFromSell">—</div>
-            </div>
-          </div>
-
-          <div class="resultBox">
-            <div class="blockTitle">Overseas (外外)</div>
-            <div class="kv">
-              <div class="k">B/E Selling Price （損益分岐販売価格）</div>
-              <div class="v" id="osSellUsdTonFromBuy">—</div>
-            </div>
-            <div class="kv">
-              <div class="k">B/E Buying Price (損益分岐仕入価格)</div>
-              <div class="v" id="osBuyUsdTonFromSell">—</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="status" id="statusText">OK.</div>
-      </section>
+    <div class="small">
+      Assumption (same as Excel): Sell ¥/kg = (Buy ¥/kg × 1.1) + 10 + OF ¥/kg
     </div>
   </div>
 
 <script>
-  // =========================
-  // PIN gate (PIN=1234)
-  // =========================
+  // ========= PIN =========
   const PIN = "1234";
   const pinOverlay = document.getElementById("pinOverlay");
   const pinInput = document.getElementById("pinInput");
@@ -299,144 +283,132 @@
   const pinErr = document.getElementById("pinErr");
   const app = document.getElementById("app");
 
-  function unlock() {
+  function unlock(){
     const entered = (pinInput.value || "").trim();
-    if (entered === PIN) {
+    if (entered === PIN){
       pinOverlay.classList.add("hidden");
       app.classList.remove("hidden");
-      try { sessionStorage.setItem("be_unlocked", "1"); } catch {}
+      try{ sessionStorage.setItem("be_unlocked","1"); }catch{}
       calcAndRender();
     } else {
-      pinErr.textContent = "Wrong PIN. Try again.";
+      pinErr.textContent = "Wrong PIN";
       pinInput.focus();
     }
   }
   pinBtn.addEventListener("click", unlock);
-  pinInput.addEventListener("keydown", (e) => { if (e.key === "Enter") unlock(); });
+  pinInput.addEventListener("keydown", e => { if(e.key === "Enter") unlock(); });
 
-  // remember unlock for this tab
-  try {
-    if (sessionStorage.getItem("be_unlocked") === "1") {
+  try{
+    if(sessionStorage.getItem("be_unlocked")==="1"){
       pinOverlay.classList.add("hidden");
       app.classList.remove("hidden");
     }
-  } catch {}
+  }catch{}
 
-  // =========================
-  // Save inputs (last entered)
-  // =========================
-  const STORE_KEY = "be_inputs_v2";
+  // ========= Save last inputs =========
+  const STORE_KEY = "be_excel_ui_inputs_v1";
   const DEFAULTS = {
-    domBuyY: 70,
-    domSellUsd: 800,
-    osBuyUsd: 585,
-    osSellUsd: 700,
+    domBuyY: 80,
+    domSellUsd: 900,
+    osBuyUsd: 800,
+    osSellUsd: 1000,
     fx: 155,
     freight: 700,
     weight: 25000
   };
 
-  const el = (id) => document.getElementById(id);
-  const inputs = Object.keys(DEFAULTS);
+  const el = (id)=>document.getElementById(id);
+  const inputIds = Object.keys(DEFAULTS);
 
-  function loadInputs() {
+  function loadInputs(){
     let saved = null;
-    try { saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); } catch {}
+    try{ saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); }catch{}
     const data = (saved && typeof saved === "object") ? saved : DEFAULTS;
-
-    inputs.forEach(id => {
-      const v = (data[id] ?? DEFAULTS[id]);
-      el(id).value = v;
-    });
+    inputIds.forEach(id => el(id).value = (data[id] ?? DEFAULTS[id]));
   }
 
-  function saveInputs() {
+  function saveInputs(){
     const data = {};
-    inputs.forEach(id => data[id] = el(id).value);
-    try { localStorage.setItem(STORE_KEY, JSON.stringify(data)); } catch {}
+    inputIds.forEach(id => data[id] = el(id).value);
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(data)); }catch{}
   }
 
-  // =========================
-  // Rounding helpers
-  // =========================
-  function num(v){ const n = Number(v); return Number.isFinite(n) ? n : NaN; }
+  // ========= Formatting =========
+  const nf0 = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
+  const nf2 = new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-  // round everything to 2 decimals (requested)
-  function fmt2(n){
-    return Number.isFinite(n) ? (Math.round(n * 100) / 100).toFixed(2) : "—";
-  }
+  function n(v){ const x = Number(v); return Number.isFinite(x) ? x : NaN; }
 
-  // =========================
-  // Calculator logic
-  // =========================
-  function calcAndRender() {
-    const domBuyY = num(el("domBuyY").value);
-    const domSellUsd = num(el("domSellUsd").value);
-    const osBuyUsd = num(el("osBuyUsd").value);
-    const osSellUsd = num(el("osSellUsd").value);
-    const fx = num(el("fx").value);
-    const freight = num(el("freight").value);
-    const weight = num(el("weight").value);
+  function yen0(x){ return Number.isFinite(x) ? "¥" + nf0.format(Math.round(x)) : "—"; }
+  function yen2(x){ return Number.isFinite(x) ? "¥" + nf2.format(Math.round(x*100)/100) : "—"; }
+  function usd0(x){ return Number.isFinite(x) ? "$" + nf0.format(Math.round(x)) : "—"; }
+  function usd2(x){ return Number.isFinite(x) ? "$" + nf2.format(Math.round(x*100)/100) : "—"; }
 
-    if (!(fx > 0) || !(weight > 0)) {
-      el("statusText").textContent = "Error: Exchange rate and weight must be > 0.";
+  // ========= Calculations =========
+  function calcAndRender(){
+    const domBuyY = n(el("domBuyY").value);
+    const domSellUsd = n(el("domSellUsd").value);
+    const osBuyUsd = n(el("osBuyUsd").value);
+    const osSellUsd = n(el("osSellUsd").value);
+    const fx = n(el("fx").value);
+    const freight = n(el("freight").value);
+    const weight = n(el("weight").value);
+
+    if(!(fx > 0) || !(weight > 0)){
+      // keep outputs as —
       return;
     }
 
-    // Freight conversions
+    // OF conversions
     const ofUsdKg = freight / weight;
     const ofUsdTon = ofUsdKg * 1000;
     const ofYKg = ofUsdKg * fx;
 
-    // Domestic:
-    // Sell ¥/kg = (Buy ¥/kg × 1.1) + 10 + OF ¥/kg
+    // Domestic: from buy (¥/kg) => sell (¥/kg) then $/ton
     const domSellYkgFromBuy = (domBuyY * 1.1) + 10 + ofYKg;
     const domSellUsdTonFromBuy = (domSellYkgFromBuy * 1000) / fx;
 
-    // From domestic sell $/ton => BE buy ¥/kg
+    // Domestic: from sell $/ton => sell ¥/kg => BE buy ¥/kg
     const domSellYkgFromSell = (domSellUsd * fx) / 1000;
     const domBuyYFromSell = ((domSellYkgFromSell - ofYKg) - 10) / 1.1;
 
-    // Overseas:
-    // From buy => BE selling price
+    // Overseas: from buy => BE sell
     const osSellUsdTonFromBuy = osBuyUsd + ofUsdTon;
 
-    // From sell => BE buying price
+    // Overseas: from sell => BE buy
     const osBuyUsdTonFromSell = osSellUsd - ofUsdTon;
 
-    // Render (rounded)
-    el("ofUsdTon").textContent = fmt2(ofUsdTon);
-    el("ofUsdKg").textContent = fmt2(ofUsdKg);
-    el("ofYKg").textContent = fmt2(ofYKg);
+    // Render to match Excel look
+    el("domSellYkgFromBuy").textContent = yen0(domSellYkgFromBuy);
+    el("domSellUsdTonFromBuy").textContent = usd0(domSellUsdTonFromBuy);
 
-    el("domSellUsdTonFromBuy").textContent = fmt2(domSellUsdTonFromBuy);
-    el("domBuyYFromSell").textContent = fmt2(domBuyYFromSell);
+    el("domSellYkgFromSell").textContent = yen0(domSellYkgFromSell);
+    el("domBuyYFromSell").textContent = yen0(domBuyYFromSell);
 
-    el("osSellUsdTonFromBuy").textContent = fmt2(osSellUsdTonFromBuy);
-    el("osBuyUsdTonFromSell").textContent = fmt2(osBuyUsdTonFromSell);
+    el("ofUsdTonA").textContent = usd0(ofUsdTon);
+    el("ofUsdTonB").textContent = usd0(ofUsdTon);
+    el("ofUsdTonC").textContent = usd0(ofUsdTon);
 
-    el("statusText").textContent = "OK.";
+    // OF$/KG shown as $0.03 style
+    el("ofUsdKg").textContent = usd2(ofUsdKg);
+    el("ofYKg").textContent = yen2(ofYKg);
+
+    el("osSellUsdTonFromBuy").textContent = usd0(osSellUsdTonFromBuy);
+    el("osBuyUsdTonFromSell").textContent = usd0(osBuyUsdTonFromSell);
   }
 
-  // Wire inputs: save + calc on change
-  inputs.forEach(id => {
-    el(id).addEventListener("input", () => {
+  // Wire inputs
+  inputIds.forEach(id=>{
+    el(id).addEventListener("input", ()=>{
       saveInputs();
-      if (app.classList.contains("hidden")) return;
+      if(app.classList.contains("hidden")) return;
       calcAndRender();
     });
   });
 
-  // Reset defaults (and clear saved)
-  el("resetBtn").addEventListener("click", () => {
-    inputs.forEach(id => el(id).value = DEFAULTS[id]);
-    try { localStorage.removeItem(STORE_KEY); } catch {}
-    calcAndRender();
-  });
-
-  // Initial load
+  // Init
   loadInputs();
-  if (!app.classList.contains("hidden")) {
+  if(!app.classList.contains("hidden")){
     calcAndRender();
   } else {
     pinInput.focus();

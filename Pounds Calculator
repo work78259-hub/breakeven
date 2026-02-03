@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USD / JPY Price Calculator</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #e6f7ff;
+      padding: 30px;
+    }
+
+    .calculator {
+      width: 900px;
+      margin: auto;
+      background: #cfefff;
+      padding: 20px;
+      border: 6px solid #000;
+    }
+
+    .rate-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+      gap: 10px;
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 12px;
+    }
+
+    th, td {
+      border: 3px solid #000;
+      text-align: center;
+      padding: 12px;
+      font-size: 20px;
+    }
+
+    th {
+      background: #cfefff;
+    }
+
+    .highlight {
+      background: yellow;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      border: none;
+      text-align: center;
+      font-size: 20px;
+      background: transparent;
+      outline: none;
+    }
+
+    .readonly {
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+
+    <div class="rate-bar">
+      <div>1 USD → JPY</div>
+      <input id="fx" type="number" value="152" oninput="recalc()" />
+    </div>
+
+    <!-- Row 1 -->
+    <table>
+      <tr>
+        <th>$ USD / MT</th>
+        <th>$ USD / KG</th>
+        <th>¥ / KG</th>
+        <th>$ USD / lb</th>
+      </tr>
+      <tr>
+        <td class="highlight"><input id="r1_mt" type="number" value="2000" oninput="recalc()" /></td>
+        <td class="readonly" id="r1_kg"></td>
+        <td class="readonly" id="r1_yen"></td>
+        <td class="readonly" id="r1_lb"></td>
+      </tr>
+    </table>
+
+    <!-- Row 2 -->
+    <table>
+      <tr>
+        <th>$ USD / MT</th>
+        <th>$ USD / KG</th>
+        <th>¥ / KG</th>
+        <th>$ USD / lb</th>
+      </tr>
+      <tr>
+        <td class="readonly" id="r2_mt"></td>
+        <td class="highlight"><input id="r2_kg" type="number" value="2" oninput="recalcFromKg()" /></td>
+        <td class="readonly" id="r2_yen"></td>
+        <td class="readonly" id="r2_lb"></td>
+      </tr>
+    </table>
+
+    <!-- Row 3 -->
+    <table>
+      <tr>
+        <th>$ USD / MT</th>
+        <th>$ USD / KG</th>
+        <th>¥ / KG</th>
+        <th>$ USD / lb</th>
+      </tr>
+      <tr>
+        <td class="readonly" id="r3_mt"></td>
+        <td class="readonly" id="r3_kg"></td>
+        <td class="highlight"><input id="r3_yen" type="number" value="100" oninput="recalcFromYen()" /></td>
+        <td class="readonly" id="r3_lb"></td>
+      </tr>
+    </table>
+
+    <!-- Row 4 -->
+    <table>
+      <tr>
+        <th>$ USD / MT</th>
+        <th>$ USD / KG</th>
+        <th>¥ / KG</th>
+        <th>$ USD / lb</th>
+      </tr>
+      <tr>
+        <td class="readonly" id="r4_mt"></td>
+        <td class="readonly" id="r4_kg"></td>
+        <td class="readonly" id="r4_yen"></td>
+        <td class="highlight"><input id="r4_lb" type="number" value="2" oninput="recalcFromLb()" /></td>
+      </tr>
+    </table>
+
+  </div>
+
+  <script>
+    const KG_PER_MT = 1000;
+    const LB_PER_KG = 2.20462;
+
+    function recalc() {
+      const fx = +document.getElementById('fx').value;
+      const mt = +document.getElementById('r1_mt').value;
+
+      const kg = mt / KG_PER_MT;
+      const yen = kg * fx;
+      const lb = kg / LB_PER_KG;
+
+      document.getElementById('r1_kg').innerText = kg.toFixed(2);
+      document.getElementById('r1_yen').innerText = yen.toFixed(1);
+      document.getElementById('r1_lb').innerText = lb.toFixed(2);
+
+      syncFromKg(kg);
+    }
+
+    function syncFromKg(kg) {
+      const fx = +document.getElementById('fx').value;
+
+      document.getElementById('r2_mt').innerText = (kg * KG_PER_MT).toFixed(0);
+      document.getElementById('r2_yen').innerText = (kg * fx).toFixed(0);
+      document.getElementById('r2_lb').innerText = (kg / LB_PER_KG).toFixed(2);
+
+      document.getElementById('r3_mt').innerText = (kg * KG_PER_MT).toFixed(0);
+      document.getElementById('r3_kg').innerText = kg.toFixed(2);
+      document.getElementById('r3_lb').innerText = (kg / LB_PER_KG).toFixed(4);
+
+      document.getElementById('r4_mt').innerText = (kg * KG_PER_MT).toFixed(0);
+      document.getElementById('r4_kg').innerText = kg.toFixed(2);
+      document.getElementById('r4_yen').innerText = (kg * fx).toFixed(2);
+    }
+
+    function recalcFromKg() {
+      const kg = +document.getElementById('r2_kg').value;
+      syncFromKg(kg);
+    }
+
+    function recalcFromYen() {
+      const fx = +document.getElementById('fx').value;
+      const yen = +document.getElementById('r3_yen').value;
+      const kg = yen / fx;
+      syncFromKg(kg);
+    }
+
+    function recalcFromLb() {
+      const lb = +document.getElementById('r4_lb').value;
+      const kg = lb * LB_PER_KG;
+      syncFromKg(kg);
+    }
+
+    recalc();
+  </script>
+
+</body>
+</html>
